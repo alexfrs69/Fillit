@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/12/12 06:53:06 by afrancoi         ###   ########.fr       */
+/*   Updated: 2018/12/12 07:25:45 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-static void	strjoin_free(char **s1, char **s2)
+static void		strjoin_free(char **s1, char **s2)
 {
 	char *tmp;
 
@@ -30,7 +30,7 @@ static void	strjoin_free(char **s1, char **s2)
 	ft_strdel(&tmp);
 }
 
-void	read_sample(int fd)
+void			read_sample(int fd)
 {
 	char	*line;
 	char	*sample;
