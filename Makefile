@@ -11,6 +11,7 @@ CFLAGS = -Wall -Wextra -Werror -I libft/includes -I .
 # Sources & Objects
 SRCS =	main.c \
 		errors.c \
+		parser.c \
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 
