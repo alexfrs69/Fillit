@@ -6,41 +6,42 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/12/12 07:25:45 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/09 00:29:07 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-#include "get_next_line.h"
 #include <stdio.h>
+#include <unistd.h>
 
-static void		strjoin_free(char **s1, char **s2)
+/*
+**	Read into fd make checks about the size.
+**	Dupe into sample and return it.
+**	Return | char* sample
+*/
+
+char	*read_sample(int fd)
 {
-	char *tmp;
+	char	buffer[MAX_TETRI + 1];
+	char	*sample;
+	int		rd;
 
-	tmp = *s1;
-	if (!(*s1 = ft_strjoin(*s1, *s2)))
+	sample = NULL;
+	rd = read(fd, buffer, MAX_TETRI + 1);
+	if (rd <= 0 || rd > 545)
 		error_exit();
-	ft_strdel(&*s2);
-	ft_strdel(&tmp);
-	tmp = *s1;
-	if (!(*s1 = ft_strjoin(*s1, "\n")))
-		error_exit();
-	ft_strdel(&tmp);
+	buffer[rd] = '\0';
+	sample = ft_strdup(buffer);
+	return (sample);
 }
 
-void			read_sample(int fd)
-{
-	char	*line;
-	char	*sample;
-	int		gnl;
+/*
+**	TODO
+**	WIP
+*/
 
-	sample = ft_strnew(0);
-	while ((gnl = get_next_line(fd, &line)) > 0)
-	{
-		strjoin_free(&sample, &line);
-	}
+void	check_sample(char *sample)
+{
 	printf("%s", sample);
-	ft_strdel(&sample);
 }
