@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:58:32 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/12/12 07:02:27 by afrancoi         ###   ########.fr       */
+/*   Updated: 2018/12/13 04:03:55 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void	error_exit(void)
 	ft_putendl("error");
 	exit(EXIT_FAILURE);
 }
+
+/*
+**	If we have 0 or 2+ args or the fd is invalid call error_exit()
+*/
 
 int		check_errors(int argc, char **argv)
 {
