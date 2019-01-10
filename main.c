@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:54:00 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/12/12 04:54:26 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/09 00:49:49 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 int		main(int argc, char **argv)
 {
-	int fd;
+	int		fd;
+	char	*sample;
 
 	fd = check_errors(argc, argv);
-	read_sample(fd);
+	sample = read_sample(fd);
+	check_sample(sample);
 	return (0);
 }
