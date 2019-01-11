@@ -6,14 +6,14 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/09 00:29:07 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/11 02:05:56 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
-#include <stdio.h>
 #include <unistd.h>
+#include <stdio.h>
 
 /*
 **	Read into fd make checks about the size.
@@ -43,5 +43,31 @@ char	*read_sample(int fd)
 
 void	check_sample(char *sample)
 {
-	printf("%s", sample);
+	char	*ptr;
+	int		nb;
+	int		count;
+
+	ptr = sample;
+	nb = 0;
+	count = 1;
+	while (*ptr)
+	{
+		if (nb > 0 && nb % 4 == 0)
+		{
+			if (*ptr != '\n')
+				error_exit();
+			nb = 0;
+			count--;
+		}
+		else if (count > 1 && count % 5 == 0)
+		{
+			if (*ptr != '\n')
+				error_exit();
+			nb++;
+		}
+		else if (*ptr != '#' && *ptr != '.')
+			error_exit();
+		count++;
+		ptr++;
+	}
 }
