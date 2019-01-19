@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:54:00 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/10 02:22:28 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/19 21:17:01 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ int		main(int argc, char **argv)
 {
 	int		fd;
 	char	*sample;
+	int		nb;
 
 	fd = check_errors(argc, argv);
 	sample = read_sample(fd);
-	check_sample(sample);
-	printf("%s", sample);
+	nb = check_sample(sample);
+	check_link(sample, 1, nb);
+	ft_putendl("OK!");
+	ft_strdel(&sample);
 	return (0);
 }

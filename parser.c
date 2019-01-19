@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/11 02:05:56 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/18 18:52:44 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,71 @@ char	*read_sample(int fd)
 }
 
 /*
-**	TODO
-**	WIP
+**	Checks if characters are only # OR . OR \n.
+**	nb is the count of line.
+**	count is the count of characters.
+**	tetri is the count of total tetriminos.
+**	Return | (int) Count of tetriminos.
 */
 
-void	check_sample(char *sample)
+int		check_sample(char *sample)
 {
-	char	*ptr;
-	int		nb;
 	int		count;
+	int		tetri;
 
-	ptr = sample;
-	nb = 0;
 	count = 1;
-	while (*ptr)
+	tetri = 1;
+	while (*sample)
 	{
-		if (nb > 0 && nb % 4 == 0)
+		if (count > 1 && count % 5 == 0)
+			*sample != '\n' ? error_exit() : NULL;
+		else if (count > 20 && count % 21 == 0)
 		{
-			if (*ptr != '\n')
-				error_exit();
-			nb = 0;
-			count--;
+			*sample != '\n' ? error_exit() : NULL;
+			count = 1;
+			tetri++;
+			sample++;
+			continue;
 		}
-		else if (count > 1 && count % 5 == 0)
-		{
-			if (*ptr != '\n')
-				error_exit();
-			nb++;
-		}
-		else if (*ptr != '#' && *ptr != '.')
+		else if (*sample != '#' && *sample != '.')
 			error_exit();
 		count++;
-		ptr++;
+		sample++;
 	}
+	return (tetri);
+}
+
+/*
+**	Checks links of a individual tetrimino.
+**	If the count of links isn't 6 or 8 it will throw an Error.
+**	The next tetrimino is called recursivly.
+**	We add 21 to sample to get the next.
+*/
+
+void	check_link(char *sample, int mynb, int nb)
+{
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (sample[i] && i < 19)
+	{
+		if (sample[i] == '#')
+		{
+			if (i > 0 && sample[i - 1] == '#')
+				count++;
+			if (i < 18 && sample[i + 1] == '#')
+				count++;
+			if (i < 14 && sample[i + 5] == '#')
+				count++;
+			if (i > 4 && sample[i - 5] == '#')
+				count++;
+		}
+		i++;
+	}
+	if (count != 6 && count != 8)
+		error_exit();
+	if (mynb != nb)
+		check_link(sample + 21, mynb + 1, nb);
 }
