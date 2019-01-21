@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/18 18:52:44 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/21 23:00:20 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,18 @@
 
 char	*read_sample(int fd)
 {
-	char	buffer[MAX_TETRI + 1];
+	char	buffer[545 + 1];
 	char	*sample;
 	int		rd;
 
 	sample = NULL;
-	rd = read(fd, buffer, MAX_TETRI + 1);
+	rd = read(fd, buffer, 545 + 1);
 	if (rd <= 0 || rd > 545)
 		error_exit();
 	buffer[rd] = '\0';
 	sample = ft_strdup(buffer);
+	if (!sample)
+		error_exit();
 	return (sample);
 }
 
@@ -68,6 +70,8 @@ int		check_sample(char *sample)
 		count++;
 		sample++;
 	}
+	if (count != 21)
+		error_exit();
 	return (tetri);
 }
 
@@ -82,7 +86,11 @@ void	check_link(char *sample, int mynb, int nb)
 {
 	int	count;
 	int	i;
+	int width;
+	int height;
 
+	width = 0;
+	height = 0;
 	i = 0;
 	count = 0;
 	while (sample[i] && i < 19)
@@ -90,18 +98,31 @@ void	check_link(char *sample, int mynb, int nb)
 		if (sample[i] == '#')
 		{
 			if (i > 0 && sample[i - 1] == '#')
+			{
 				count++;
+				width++;
+			}
 			if (i < 18 && sample[i + 1] == '#')
+			{
 				count++;
+				width++;
+			}
 			if (i < 14 && sample[i + 5] == '#')
+			{
 				count++;
+				height++;
+			}
 			if (i > 4 && sample[i - 5] == '#')
+			{
+				height++;
 				count++;
+			}
 		}
 		i++;
 	}
 	if (count != 6 && count != 8)
 		error_exit();
+	printf("height : %d | width : %d\n", height / 2 + 1, width / 2 + 1);
 	if (mynb != nb)
 		check_link(sample + 21, mynb + 1, nb);
 }
