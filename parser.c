@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/29 03:34:42 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/30 02:27:33 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,24 +87,24 @@ int	check_link(char *sample, int mynb, int nb)
 	int	i;
 	int width;
 	int height;
-	int htagueule;
+	int htag;
 
 	width = 0;
 	height = 0;
 	i = -1;
 	count = 0;
-	htagueule = 0;
+	htag = 0;
 	while (sample[++i] && i < 19)
 	{
 		if (sample[i] != '#')
 			continue ;
-		++htagueule;
+		++htag;
 		width += (i > 0 && sample[i - 1] == '#' && ++count)
 				+ (i < 18 && sample[i + 1] == '#' && ++count);
 		height += (i < 14 && sample[i + 5] == '#' && ++count)
 				+ (i > 4 && sample[i - 5] == '#' && ++count);
 	}
-	if ((count != 6 && count != 8) || htagueule != 4)
+	if ((count != 6 && count != 8) || htag != 4)
 		return (0);
 	return (mynb != nb ? check_link(sample + 21, mynb + 1, nb) : 1);
 }
