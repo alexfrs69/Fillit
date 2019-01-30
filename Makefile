@@ -6,12 +6,13 @@ SHELL = /bin/zsh
 # GCC
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -I libft/includes -I .
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I libft/includes -I .
 
 # Sources & Objects
 SRCS =	main.c \
 		errors.c \
 		parser.c \
+		map.c \
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 
@@ -27,7 +28,7 @@ LIBFT = libft/
 
 all : $(NAME)
 
-$(NAME) : $(LIBFT) $(OBJS)
+$(NAME) : $(LIBFT) $(OBJS) fillit.h
 	@make -C $(LIBFT)
 	@echo -n "\e[1;36m Compiling $@...\e[0m"
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(INCLUDES)

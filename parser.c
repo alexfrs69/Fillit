@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/30 11:09:39 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/30 12:15:55 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 **	Return | char* sample
 */
 
-char	*read_sample(int fd)
+char		*read_sample(int fd)
 {
 	char	buffer[546];
 	int		rd;
@@ -34,7 +34,7 @@ char	*read_sample(int fd)
 	return (ft_strdup(buffer));
 }
 
-static int		check_one(char *sample)
+static	int	check_one(char *sample)
 {
 	unsigned int i;
 
@@ -62,7 +62,7 @@ static int		check_one(char *sample)
 **	Return | (int) Count of tetriminos.
 */
 
-int		check_sample(char *sample)
+int			check_sample(char *sample)
 {
 	unsigned int nb;
 
@@ -89,7 +89,7 @@ int		check_sample(char *sample)
 **	We add 21 to sample to get the next.
 */
 
-int	check_link(char *sample, int mynb, int nb)
+int			check_link(char *sample, int mynb, int nb)
 {
 	int	count;
 	int	i;
@@ -117,15 +117,21 @@ int	check_link(char *sample, int mynb, int nb)
 	return (mynb != nb ? check_link(sample + 21, mynb + 1, nb) : 1);
 }
 
-void	save_tetri(char *sample, t_tetri *tab, int nb)
+void		save_tetri(char *sample, t_tetri *tab, int nb)
 {
 	int i;
+	int x;
 
 	i = 0;
-	while (i < nb)
+	while (i <= nb)
 	{
-		ft_memcpy(tab[nb].piece, sample + 20, 20);
-		ft_memcpy(&tab[nb].number, &i, sizeof(int));
+		x = 0;
+		while (x < 20)
+		{
+			if (x / 5 != 4 && x % 5 != 4)
+				tab[i].piece[x / 5][x % 5] = sample[x] == '#' ? 'A' + i : '.';
+			++x;
+		}
 		++i;
 	}
 }
