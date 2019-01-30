@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:58:32 by afrancoi          #+#    #+#             */
-/*   Updated: 2018/12/13 04:03:55 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/29 02:56:42 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include <stdlib.h>
 #include <fcntl.h>
 
-void	error_exit(void)
+int	error_exit(char *sample)
 {
+	free(sample);
 	ft_putendl("error");
-	exit(EXIT_FAILURE);
+	return (0);
 }
 
 /*
@@ -26,10 +27,7 @@ void	error_exit(void)
 
 int		check_errors(int argc, char **argv)
 {
-	int fd;
-
-	fd = 0;
-	if (argc > 2 || argc == 1 || (fd = open(argv[1], O_RDONLY)) <= 0)
-		error_exit();
-	return (fd);
+	if (argc != 2)
+		return (-1);
+	return (open(argv[1], O_RDONLY));
 }

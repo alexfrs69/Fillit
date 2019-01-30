@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/21 23:00:20 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/29 03:34:42 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,14 @@
 
 char	*read_sample(int fd)
 {
-	char	buffer[545 + 1];
-	char	*sample;
+	char	buffer[546];
 	int		rd;
 
-	sample = NULL;
-	rd = read(fd, buffer, 545 + 1);
-	if (rd <= 0 || rd > 545)
-		error_exit();
+	rd = read(fd, buffer, 546);
+	if (rd < 20 || rd > 545)
+		return (0);
 	buffer[rd] = '\0';
-	sample = ft_strdup(buffer);
-	if (!sample)
-		error_exit();
-	return (sample);
+	return (ft_strdup(buffer));
 }
 
 /*
@@ -56,22 +51,26 @@ int		check_sample(char *sample)
 	while (*sample)
 	{
 		if (count > 1 && count % 5 == 0)
-			*sample != '\n' ? error_exit() : NULL;
+		{
+			if (*sample != '\n')
+				return (0);
+		}
 		else if (count > 20 && count % 21 == 0)
 		{
-			*sample != '\n' ? error_exit() : NULL;
+			if (*sample != '\n')
+				return (0);
 			count = 1;
 			tetri++;
 			sample++;
 			continue;
 		}
 		else if (*sample != '#' && *sample != '.')
-			error_exit();
+			return (0);
 		count++;
 		sample++;
 	}
 	if (count != 21)
-		error_exit();
+		return (0);
 	return (tetri);
 }
 
@@ -82,47 +81,43 @@ int		check_sample(char *sample)
 **	We add 21 to sample to get the next.
 */
 
-void	check_link(char *sample, int mynb, int nb)
+int	check_link(char *sample, int mynb, int nb)
 {
 	int	count;
 	int	i;
 	int width;
 	int height;
+	int htagueule;
 
 	width = 0;
 	height = 0;
-	i = 0;
+	i = -1;
 	count = 0;
-	while (sample[i] && i < 19)
+	htagueule = 0;
+	while (sample[++i] && i < 19)
 	{
-		if (sample[i] == '#')
-		{
-			if (i > 0 && sample[i - 1] == '#')
-			{
-				count++;
-				width++;
-			}
-			if (i < 18 && sample[i + 1] == '#')
-			{
-				count++;
-				width++;
-			}
-			if (i < 14 && sample[i + 5] == '#')
-			{
-				count++;
-				height++;
-			}
-			if (i > 4 && sample[i - 5] == '#')
-			{
-				height++;
-				count++;
-			}
-		}
-		i++;
+		if (sample[i] != '#')
+			continue ;
+		++htagueule;
+		width += (i > 0 && sample[i - 1] == '#' && ++count)
+				+ (i < 18 && sample[i + 1] == '#' && ++count);
+		height += (i < 14 && sample[i + 5] == '#' && ++count)
+				+ (i > 4 && sample[i - 5] == '#' && ++count);
 	}
-	if (count != 6 && count != 8)
-		error_exit();
-	printf("height : %d | width : %d\n", height / 2 + 1, width / 2 + 1);
-	if (mynb != nb)
-		check_link(sample + 21, mynb + 1, nb);
+	if ((count != 6 && count != 8) || htagueule != 4)
+		return (0);
+	return (mynb != nb ? check_link(sample + 21, mynb + 1, nb) : 1);
+}
+
+void	save_tetri(char *sample, t_tetri *tab, int nb)
+{
+	int i;
+
+	i = 0;
+	while (i < nb)
+	{
+		ft_memcpy(tab[nb].piece, sample + 20, 20);
+		ft_memcpy(&tab[nb].number, &i, sizeof(int));
+		++i;
+	}
 }
