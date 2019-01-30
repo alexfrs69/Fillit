@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/30 02:27:33 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/30 11:09:39 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "fillit.h"
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
 **	Read into fd make checks about the size.
@@ -33,6 +34,26 @@ char	*read_sample(int fd)
 	return (ft_strdup(buffer));
 }
 
+static int		check_one(char *sample)
+{
+	unsigned int i;
+
+	i = 0;
+	while (sample[i] && i < 21)
+	{
+		if (sample[i] != '#' && sample[i] != '.' && sample[i] != '\n')
+			return (0);
+		if (sample[i] == '\n' && i % 5 != 4 && i < 20)
+			return (0);
+		if (sample[i] != '\n' && i % 5 == 4)
+			return (0);
+		if (sample[i] != '\n' && i == 20)
+			return (0);
+		++i;
+	}
+	return (1);
+}
+
 /*
 **	Checks if characters are only # OR . OR \n.
 **	nb is the count of line.
@@ -43,35 +64,22 @@ char	*read_sample(int fd)
 
 int		check_sample(char *sample)
 {
-	int		count;
-	int		tetri;
+	unsigned int nb;
 
-	count = 1;
-	tetri = 1;
+	nb = 0;
 	while (*sample)
 	{
-		if (count > 1 && count % 5 == 0)
-		{
-			if (*sample != '\n')
-				return (0);
-		}
-		else if (count > 20 && count % 21 == 0)
-		{
-			if (*sample != '\n')
-				return (0);
-			count = 1;
-			tetri++;
-			sample++;
-			continue;
-		}
-		else if (*sample != '#' && *sample != '.')
+		if (!check_one(sample))
 			return (0);
-		count++;
-		sample++;
+		nb++;
+		if (ft_strlen(sample) >= 21)
+			sample += 21;
+		else
+			sample += ft_strlen(sample);
 	}
-	if (count != 21)
+	if (sample[-1] == '\n' && sample[-2] == '\n')
 		return (0);
-	return (tetri);
+	return (nb);
 }
 
 /*
