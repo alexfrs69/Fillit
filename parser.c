@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/30 12:15:55 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/01/31 07:51:54 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		save_tetri(char *sample, t_tetri *tab, int nb)
 	int i;
 	int x;
 
+	nb -= 1;
 	i = 0;
 	while (i <= nb)
 	{
