@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/31 07:51:54 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/04 18:31:17 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,17 +122,13 @@ void		save_tetri(char *sample, t_tetri *tab, int nb)
 	int i;
 	int x;
 
-	nb -= 1;
-	i = 0;
-	while (i <= nb)
+	i = -1;
+	while (++i < nb)
 	{
-		x = 0;
-		while (x < 20)
-		{
+		x = -1;
+		while (++x < 20)
 			if (x / 5 != 4 && x % 5 != 4)
 				tab[i].piece[x / 5][x % 5] = sample[x] == '#' ? 'A' + i : '.';
-			++x;
-		}
-		++i;
+		sample += 21;
 	}
 }

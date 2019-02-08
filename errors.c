@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:58:32 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/01/30 02:33:37 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/02 13:35:12 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 
 int	error_exit(char *sample)
 {
-	free(sample);
+	if (sample)
+		free(sample);
 	ft_putendl("error");
 	return (1);
 }
