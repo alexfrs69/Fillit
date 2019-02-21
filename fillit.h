@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 17:32:12 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/04 18:11:14 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/22 00:14:55 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void				save_tetri(char *sample, t_tetri *tab, int nb);
 char				**new_map(int size);
 void				free_map(char **map, int size);
 void				replace_tetri(t_tetri *tetri, int nb);
+void				ft_display_multitab(char tab[4][4]);
 
 #endif

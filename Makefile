@@ -13,6 +13,7 @@ SRCS =	main.c \
 		errors.c \
 		parser.c \
 		map.c \
+		tetri_modifier.c \
 
 OBJS = $(patsubst %.c, %.o, $(SRCS))
 

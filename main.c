@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:54:00 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/04 18:49:16 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/22 00:22:32 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,7 @@ int		main(int argc, char **argv)
 	if (!check_link(sample, 1, nb))
 		return (error_exit(sample));
 	save_tetri(sample, tetri, nb);
-	ft_display_multitab(tetri[0].piece);
 	replace_tetri(tetri, nb);
-	ft_display_multitab(tetri[0].piece);
 	size = (int)ft_sqrt(nb * 4, 0);
 	map = new_map(size);
 	free_map(map, size);
