@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 22:53:36 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/22 00:20:08 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/24 20:13:50 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "fillit.h"
 #include <stdio.h>
 
-static void		swap_tab_h(char tab[4][4])
+static void		ft_swap_tab_h(char tab[4][4])
 {
 	char	tmp[4][4];
 	int		x;
@@ -27,7 +27,7 @@ static void		swap_tab_h(char tab[4][4])
 		ft_memcpy(tab[x], tmp[(x + 1) % 4], 4);
 }
 
-static void		swap_tab_v(char tab[4][4])
+static void		ft_swap_tab_v(char tab[4][4])
 {
 	char	tmp[4][4];
 	int		x;
@@ -45,7 +45,7 @@ static void		swap_tab_v(char tab[4][4])
 	}
 }
 
-static int	check_v(char tab[4][4])
+static int	ft_check_v(char tab[4][4])
 {
 	int x;
 	int res;
@@ -60,7 +60,7 @@ static int	check_v(char tab[4][4])
 	return (0);
 }
 
-void		replace_tetri(t_tetri *tetri, int nb)
+void		ft_replace_tetri(t_tetri *tetri, int nb)
 {
 	int n;
 
@@ -68,8 +68,8 @@ void		replace_tetri(t_tetri *tetri, int nb)
 	while (++n < nb)
 	{
 		while (ft_strncmp(tetri[n].piece[0], "....", 4) == 0)
-			swap_tab_h(tetri[n].piece);
-		while (check_v(tetri[n].piece))
-			swap_tab_v(tetri[n].piece);
+			ft_swap_tab_h(tetri[n].piece);
+		while (ft_check_v(tetri[n].piece))
+			ft_swap_tab_v(tetri[n].piece);
 	}
 }

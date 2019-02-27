@@ -6,7 +6,7 @@ SHELL = /bin/zsh
 # GCC
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -I libft/includes -I .
+CFLAGS = -Wall -Wextra -Werror -I libft/includes -I .
 
 # Sources & Objects
 SRCS =	main.c \

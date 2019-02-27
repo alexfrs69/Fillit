@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/04 18:31:17 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/24 20:39:07 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 **	Return | char* sample
 */
 
-char		*read_sample(int fd)
+char		*ft_read_sample(int fd)
 {
 	char	buffer[546];
 	int		rd;
@@ -34,9 +34,9 @@ char		*read_sample(int fd)
 	return (ft_strdup(buffer));
 }
 
-static	int	check_one(char *sample)
+static	int	ft_check_one(char *sample)
 {
-	unsigned int i;
+	int i;
 
 	i = 0;
 	while (sample[i] && i < 21)
@@ -62,14 +62,14 @@ static	int	check_one(char *sample)
 **	Return | (int) Count of tetriminos.
 */
 
-int			check_sample(char *sample)
+int			ft_check_sample(char *sample)
 {
-	unsigned int nb;
+	int nb;
 
 	nb = 0;
 	while (*sample)
 	{
-		if (!check_one(sample))
+		if (!ft_check_one(sample))
 			return (0);
 		nb++;
 		if (ft_strlen(sample) >= 21)
@@ -89,7 +89,7 @@ int			check_sample(char *sample)
 **	We add 21 to sample to get the next.
 */
 
-int			check_link(char *sample, int mynb, int nb)
+int			ft_check_link(char *sample, int mynb, int nb)
 {
 	int	count;
 	int	i;
@@ -114,10 +114,10 @@ int			check_link(char *sample, int mynb, int nb)
 	}
 	if ((count != 6 && count != 8) || htag != 4)
 		return (0);
-	return (mynb != nb ? check_link(sample + 21, mynb + 1, nb) : 1);
+	return (mynb != nb ? ft_check_link(sample + 21, mynb + 1, nb) : 1);
 }
 
-void		save_tetri(char *sample, t_tetri *tab, int nb)
+void		ft_save_tetri(char *sample, t_tetri *tab, int nb)
 {
 	int i;
 	int x;
