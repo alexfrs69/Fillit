@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:54:00 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/24 20:49:11 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/27 22:26:25 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int			main(int argc, char **argv)
 	char	*sample;
 	int		nb;
 	int		size;
-	char	**map;
+	t_map	*map;
 
 	if (!(sample = ft_check_input(argc, argv)))
 		return (ft_error_exit(0));
@@ -74,8 +74,8 @@ int			main(int argc, char **argv)
 	size = (int)ft_sqrt(nb * 4, 0);
 	if (!(map = ft_new_map(size)))
 		return (1);
-	ft_display_multitab(map, size);
-	ft_free_map(map, size);
+	ft_display_multitab(map->tab, map->size);
+	ft_free_map(map);
 	ft_putendl("OK!");
 	ft_strdel(&sample);
 	return (0);
