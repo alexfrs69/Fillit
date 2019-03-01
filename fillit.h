@@ -36,6 +36,7 @@ void				ft_free_map(t_map *map);
 void				ft_replace_tetri(t_tetri *tetri, int nb);
 void				ft_display_multitab(char **tab, int size);
 int					ft_solve(t_map *map, t_tetri *tetri, int nb, int mynb);
-t_map				*ft_start(t_tetri *tetri, int nb, int size);
+int					ft_start(t_tetri *tetri, int nb);
+void				ft_print_map(t_map *map);
 
 #endif

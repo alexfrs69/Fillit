@@ -65,18 +65,13 @@ int			main(int argc, char **argv)
 	t_tetri tetri[26];
 	char	*sample;
 	int		nb;
-	int		size;
-	t_map	*map;
 
 	if (!(sample = ft_check_input(argc, argv)))
 		return (ft_error_exit(0));
 	if (!(nb = ft_parse_input(sample, tetri)))
 		return (1);
-	size = ft_sqrt(nb * 4, 0);
-	if (!(map = ft_start(tetri, nb, size)))
+	if (!ft_start(tetri, nb))
 		return (ft_error_exit(sample));
-	ft_display_multitab(map->tab, size);
-	ft_free_map(map);
 	ft_strdel(&sample);
 	return (0);
 }

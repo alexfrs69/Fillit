@@ -47,18 +47,15 @@ void	ft_free_map(t_map *map)
 	free(map);
 }
 
-t_map	*ft_start(t_tetri *tetri, int nb, int size)
+void	ft_print_map(t_map *map)
 {
-	t_map	*map;
+	int i;
 
-	if (!(map = ft_new_map(size)))
-		return (0);
-	while(!ft_solve(map, tetri, nb, 0))
+	i = 0;
+	while (i < map->size)
 	{
-		size++;
-		ft_free_map(map);
-		if (!(map = ft_new_map(size)))
-			return (0);
+		ft_putstr(map->tab[i]);
+		ft_putchar('\n');
+		i++;
 	}
-	return (map);
 }
