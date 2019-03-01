@@ -57,7 +57,8 @@ t_map	*ft_start(t_tetri *tetri, int nb, int size)
 	{
 		size++;
 		ft_free_map(map);
-		map = ft_new_map(size);
+		if (!(map = ft_new_map(size)))
+			return (0);
 	}
 	return (map);
 }
