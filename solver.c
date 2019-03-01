@@ -14,80 +14,62 @@
 #include "fillit.h"
 #include <stdio.h>
 
-int		ft_next_char(char tab[4][4], int xy[2])
+void	ft_place_tetri(t_map *map, t_tetri *tetri, int mx, int my, char c)
 {
-	while (xy[0]++ < 4)
-	{
-		xy[1] = -1;
-		while (++xy[1] < 4)
-		{
-			if (tab[xy[0]][xy[1]] != '.')
-				return ();
-		}
-	}
-	return (0);
-}
+	int x;
+	int y;
 
-int		ft_check(t_map **map, char tab[4][4], int pos[2])
-{
-	int xy[2];
-
-	printf("FT_CHECK\n");
-	xy[0] = 0;
-	xy[1] = 0;
-	ft_next_char(tab, xy);
-	printf("INIT : x = %d, y = %d\n", xy[0], xy[1]);
-	while (pos[0]++ < (*map)->size)
-	{
-		while (pos[1]++ < (*map)->size)
-		{
-			if ((*map)->tab[pos[0]][pos[1]] == '.')
-			{
-				(*map)->tab[pos[0]][pos[1]] = tab[xy[0]][xy[1]];
-				ft_putchar((*map)->tab[pos[0]][pos[1]]);
-				ft_putendl("");
-			}
-			printf("BEFORE : x = %d, y = %d\n", xy[0], xy[1]);
-			if (!ft_next_char(tab, xy))
-				return (1);
-			printf("AFTER : x = %d, y = %d\n", xy[0], xy[1]);
-		}
-	}
-	return (0);
-}
-
-void	ft_remove_tetri(t_map **map, int c)
-{
-	char	*del;
-	int		x;
-
-	del = NULL;
 	x = -1;
-	while (++x < (*map)->size)
+	while (++x < 4)
 	{
-		while ((del = ft_memchr((*map)->tab[x], c, (*map)->size - 1)))
-			*del = '?';
+		y = -1;
+		while (++y < 4)
+			if (tetri->piece[x][y] != '.')
+				map->tab[mx + x][my + y] = c;
 	}
 }
 
-int		ft_solve(t_map **map, t_tetri *tetri, int nb, int mynb)
+int		ft_check(t_map *map, t_tetri *tetri, int mx, int my)
 {
-	int pos[2];
+	int x;
+	int y;
 
-	pos[0] = -1;
-	if (mynb >= nb)
-		return (0);
-	while (++pos[0] < (*map)->size)
+	x = -1;
+	while (++x < 4)
 	{
-		pos[1] = -1;
-		while (++pos[1] < (*map)->size)
+		y = -1;
+		while (++y < 4)
 		{
-			if (ft_check(&*map, tetri[mynb].piece, pos))
-				if (ft_solve(&*map, tetri, nb, mynb + 1) > 0)
-					return (1);
-			ft_remove_tetri(&*map, mynb + 'A');
+			if(tetri->piece[x][y] != '.' && map->tab[mx + x][y + my] != '.')
+				return (0);
 		}
 	}
-	return (-1);
+	ft_place_tetri(map, tetri, mx, my, tetri->letter);
+	return (1);
+}
+
+int		ft_solve(t_map *map, t_tetri *tetri, int nb, int mynb)
+{
+	int x;
+	int y;
+
+	if (mynb == nb)
+		return (1);
+	x = -1;
+	while (++x < map->size - 4)
+	{
+		y = -1;
+		while (++y < map->size - 4)
+		{
+			if (ft_check(map, &tetri[mynb], x, y))
+			{
+				if (ft_solve(map, tetri, nb, mynb + 1))
+					return (1);
+				else 
+					ft_place_tetri(map, &tetri[mynb], x, y, '.');
+			}
+		}
+	}
+	return (0);
 }
 

@@ -40,6 +40,24 @@ void	ft_free_map(t_map *map)
 
 	size = map->size;
 	while (size--)
+	{
 		free(map->tab[size]);
+	}
+	free(map->tab);
 	free(map);
+}
+
+t_map	*ft_start(t_tetri *tetri, int nb, int size)
+{
+	t_map	*map;
+
+	if (!(map = ft_new_map(size)))
+		return (0);
+	while(!ft_solve(map, tetri, nb, 0))
+	{
+		size++;
+		ft_free_map(map);
+		map = ft_new_map(size);
+	}
+	return (map);
 }

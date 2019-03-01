@@ -89,16 +89,12 @@ int			ft_check_sample(char *sample)
 **	We add 21 to sample to get the next.
 */
 
-int			ft_check_link(char *sample, int mynb, int nb)
+int			ft_check_link(char *sample, t_tetri *tetri, int mynb, int nb)
 {
 	int	count;
 	int	i;
-	int width;
-	int height;
 	int htag;
 
-	width = 0;
-	height = 0;
 	i = -1;
 	count = 0;
 	htag = 0;
@@ -107,14 +103,36 @@ int			ft_check_link(char *sample, int mynb, int nb)
 		if (sample[i] != '#')
 			continue ;
 		++htag;
-		width += (i > 0 && sample[i - 1] == '#' && ++count)
-				+ (i < 18 && sample[i + 1] == '#' && ++count);
-		height += (i < 14 && sample[i + 5] == '#' && ++count)
-				+ (i > 4 && sample[i - 5] == '#' && ++count);
+		(i > 0 && sample[i - 1] == '#') ? ++count : 0;
+		(i < 18 && sample[i + 1] == '#') ? ++count : 0;
+		(i < 14 && sample[i + 5] == '#') ? ++count : 0;
+		(i > 4 && sample[i - 5] == '#') ? ++count : 0;
 	}
 	if ((count != 6 && count != 8) || htag != 4)
 		return (0);
-	return (mynb != nb ? ft_check_link(sample + 21, mynb + 1, nb) : 1);
+	return (mynb != nb ? ft_check_link(sample + 21, tetri, mynb + 1, nb) : 1);
+}
+
+void	min_max(char *str, int *ix, int *iy, int *jx, int *jy)
+{
+	int i;
+
+	i = 0;
+	while (i < 20)
+	{
+		if (str[i] == '#')
+		{
+			if (i / 5 < *iy)
+				*iy = i / 5;
+			if (i / 5 > *jy)
+				*jy = i / 5;
+			if (i % 5 < *ix)
+				*ix = i % 5;
+			if (i % 5 > *jx)
+				*jx = i % 5;
+		}
+		i++;
+	}
 }
 
 void		ft_save_tetri(char *sample, t_tetri *tab, int nb)
@@ -122,13 +140,23 @@ void		ft_save_tetri(char *sample, t_tetri *tab, int nb)
 	int i;
 	int x;
 
+
 	i = -1;
 	while (++i < nb)
 	{
+		int ix = 3;
+		int iy = 3;
+		int jx = 0;
+		int jy = 0;
+		min_max(sample, &ix, &iy, &jx, &jy);
+		
 		x = -1;
 		while (++x < 20)
 			if (x / 5 != 4 && x % 5 != 4)
 				tab[i].piece[x / 5][x % 5] = sample[x] == '#' ? 'A' + i : '.';
+		tab[i].letter = 'A' + i;
+		tab[i].width = jx - ix + 1;
+		tab[i].height = jy - iy + 1;
 		sample += 21;
 	}
 }

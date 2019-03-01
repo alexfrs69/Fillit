@@ -19,19 +19,17 @@
 ** TODO REMOVE
 */
 
-void		ft_display_multitab(char tab[4][4], int size)
+void		ft_display_multitab(char **tab, int size)
 {
 	int x;
 	int y;
 
 	x = -1;
-	printf("%d\n", size);
 	while (++x < size)
 	{
 		y = -1;
 		while (++y < size)
 			ft_putchar(tab[x][y]);
-		//ft_putchar(x + '0');
 		ft_putendl("");
 	}
 	ft_putendl("");
@@ -55,7 +53,7 @@ static int	ft_parse_input(char *sample, t_tetri *tetri)
 
 	if (!(nb = ft_check_sample(sample)))
 		return (ft_error_exit(sample));
-	if (!ft_check_link(sample, 1, nb))
+	if (!ft_check_link(sample, tetri, 1, nb))
 		return (ft_error_exit(sample));
 	ft_save_tetri(sample, tetri, nb);
 	ft_replace_tetri(tetri, nb);
@@ -74,13 +72,11 @@ int			main(int argc, char **argv)
 		return (ft_error_exit(0));
 	if (!(nb = ft_parse_input(sample, tetri)))
 		return (1);
-	size = (int)ft_sqrt(nb * 4, 0);
-	if (!(map = ft_new_map(size)))
-		return (1);
-	printf("%d\n", nb);
-	ft_solve(&map, tetri, nb, 0);
+	size = ft_sqrt(nb * 4, 0);
+	if (!(map = ft_start(tetri, nb, size)))
+		return (ft_error_exit(sample));
+	ft_display_multitab(map->tab, size);
 	ft_free_map(map);
-	ft_putendl("OK!");
 	ft_strdel(&sample);
 	return (0);
 }
