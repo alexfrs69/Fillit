@@ -6,29 +6,32 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:54:00 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/27 22:26:25 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/02/28 05:48:06 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
+#include <stdio.h>
 
 
 /*
 ** TODO REMOVE
 */
 
-void		ft_display_multitab(char **tab, int size)
+void		ft_display_multitab(char tab[4][4], int size)
 {
 	int x;
 	int y;
 
 	x = -1;
+	printf("%d\n", size);
 	while (++x < size)
 	{
 		y = -1;
 		while (++y < size)
 			ft_putchar(tab[x][y]);
+		//ft_putchar(x + '0');
 		ft_putendl("");
 	}
 	ft_putendl("");
@@ -74,7 +77,8 @@ int			main(int argc, char **argv)
 	size = (int)ft_sqrt(nb * 4, 0);
 	if (!(map = ft_new_map(size)))
 		return (1);
-	ft_display_multitab(map->tab, map->size);
+	printf("%d\n", nb);
+	ft_solve(&map, tetri, nb, 0);
 	ft_free_map(map);
 	ft_putendl("OK!");
 	ft_strdel(&sample);
