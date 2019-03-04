@@ -6,11 +6,10 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:34:15 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/03/04 09:56:31 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:00:16 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fillit.h"
 #include <stdlib.h>
 

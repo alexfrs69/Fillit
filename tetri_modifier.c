@@ -6,13 +6,11 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 22:53:36 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/24 20:13:50 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:04:17 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fillit.h"
-#include <stdio.h>
 
 static void		ft_swap_tab_h(char tab[4][4])
 {
@@ -45,7 +43,7 @@ static void		ft_swap_tab_v(char tab[4][4])
 	}
 }
 
-static int	ft_check_v(char tab[4][4])
+static int		ft_check_v(char tab[4][4])
 {
 	int x;
 	int res;
@@ -60,7 +58,7 @@ static int	ft_check_v(char tab[4][4])
 	return (0);
 }
 
-void		ft_replace_tetri(t_tetri *tetri, int nb)
+void			ft_replace_tetri(t_tetri *tetri, int nb)
 {
 	int n;
 
@@ -71,5 +69,26 @@ void		ft_replace_tetri(t_tetri *tetri, int nb)
 			ft_swap_tab_h(tetri[n].piece);
 		while (ft_check_v(tetri[n].piece))
 			ft_swap_tab_v(tetri[n].piece);
+	}
+}
+
+void			ft_get_wh(char *str, int wh[4])
+{
+	int i;
+
+	i = -1;
+	while (++i < 20)
+	{
+		if (str[i] == '#')
+		{
+			if (i / 5 < wh[0])
+				wh[0] = i / 5;
+			if (i / 5 > wh[1])
+				wh[1] = i / 5;
+			if (i % 5 < wh[2])
+				wh[2] = i % 5;
+			if (i % 5 > wh[3])
+				wh[3] = i % 5;
+		}
 	}
 }

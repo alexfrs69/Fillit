@@ -6,11 +6,10 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/03/04 09:52:23 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:02:08 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fillit.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -88,7 +87,7 @@ int			ft_check_sample(char *sample)
 **	We add 21 to sample to get the next.
 */
 
-int			ft_check_link(char *sample, t_tetri *tetri, int mynb, int nb)
+int			check_link(char *sample, t_tetri *tetri, int mynb, int nb)
 {
 	int	count;
 	int	i;
@@ -109,33 +108,7 @@ int			ft_check_link(char *sample, t_tetri *tetri, int mynb, int nb)
 	}
 	if ((count != 6 && count != 8) || htag != 4)
 		return (0);
-	return (mynb != nb ? ft_check_link(sample + 21, tetri, mynb + 1, nb) : 1);
-}
-
-
-/*
-**	iy = 0 | jy = 1
-**	ix = 2 | jx = 3
-*/
-void	ft_get_wh(char *str, int wh[4])
-{
-	int i;
-
-	i = -1;
-	while (++i < 20)
-	{
-		if (str[i] == '#')
-		{
-			if (i / 5 < wh[0])
-				wh[0] = i / 5;
-			if (i / 5 > wh[1])
-				wh[1] = i / 5;
-			if (i % 5 < wh[2])
-				wh[2] = i % 5;
-			if (i % 5 > wh[3])
-				wh[3] = i % 5;
-		}
-	}
+	return (mynb != nb ? check_link(sample + 21, tetri, mynb + 1, nb) : 1);
 }
 
 void		ft_save_tetri(char *sample, t_tetri *tab, int nb)

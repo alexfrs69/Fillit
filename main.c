@@ -6,34 +6,11 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:54:00 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/03/04 09:53:27 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:01:09 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "fillit.h"
-#include <stdio.h>
-
-
-/*
-** TODO REMOVE
-*/
-
-void		ft_display_multitab(char **tab, int size)
-{
-	int x;
-	int y;
-
-	x = -1;
-	while (++x < size)
-	{
-		y = -1;
-		while (++y < size)
-			ft_putchar(tab[x][y]);
-		ft_putendl("");
-	}
-	ft_putendl("");
-}
 
 static char	*ft_check_input(int argc, char **argv)
 {
@@ -53,7 +30,7 @@ static int	ft_parse_input(char *sample, t_tetri *tetri)
 
 	if (!(nb = ft_check_sample(sample)))
 		return (ft_error_exit(sample));
-	if (!ft_check_link(sample, tetri, 1, nb))
+	if (!check_link(sample, tetri, 1, nb))
 		return (ft_error_exit(sample));
 	ft_save_tetri(sample, tetri, nb);
 	ft_replace_tetri(tetri, nb);

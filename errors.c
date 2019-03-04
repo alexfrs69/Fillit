@@ -6,11 +6,11 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 16:58:32 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/24 20:22:42 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:01:32 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fillit.h"
 #include <stdlib.h>
 #include <fcntl.h>
 
@@ -18,7 +18,7 @@
 ** Free the sample, put an error to stdin and return 1
 */
 
-int	ft_error_exit(char *sample)
+int		ft_error_exit(char *sample)
 {
 	if (sample)
 		free(sample);
