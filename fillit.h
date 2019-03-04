@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/05 17:32:12 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/28 05:46:20 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 05:42:13 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef	struct		s_tetri {
 typedef struct		s_map {
 	char			**tab;
 	int				size;
+	int				x;
+	int				y;
 }					t_map;
 
 int					ft_check_errors(int argc, char **argv);
