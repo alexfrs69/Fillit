@@ -6,7 +6,7 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/30 12:34:15 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/27 22:25:06 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:56:31 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,16 @@ void	ft_free_map(t_map *map)
 
 void	ft_print_map(t_map *map)
 {
-	int i;
+	int x;
+	int y;
 
-	i = 0;
-	while (i < map->size)
+	x = -1;
+	while (++x < map->size)
 	{
-		ft_putstr(map->tab[i]);
-		ft_putchar('\n');
-		i++;
+		y = -1;
+		while (++y < map->size)
+			ft_putchar(map->tab[x][y]);
+		ft_putendl("");
 	}
+	ft_putendl("");
 }

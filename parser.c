@@ -6,14 +6,13 @@
 /*   By: afrancoi <afrancoi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 06:49:40 by afrancoi          #+#    #+#             */
-/*   Updated: 2019/02/24 20:39:07 by afrancoi         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:52:23 by afrancoi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "fillit.h"
 #include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 /*
@@ -113,25 +112,29 @@ int			ft_check_link(char *sample, t_tetri *tetri, int mynb, int nb)
 	return (mynb != nb ? ft_check_link(sample + 21, tetri, mynb + 1, nb) : 1);
 }
 
-void	min_max(char *str, int *ix, int *iy, int *jx, int *jy)
+
+/*
+**	iy = 0 | jy = 1
+**	ix = 2 | jx = 3
+*/
+void	ft_get_wh(char *str, int wh[4])
 {
 	int i;
 
-	i = 0;
-	while (i < 20)
+	i = -1;
+	while (++i < 20)
 	{
 		if (str[i] == '#')
 		{
-			if (i / 5 < *iy)
-				*iy = i / 5;
-			if (i / 5 > *jy)
-				*jy = i / 5;
-			if (i % 5 < *ix)
-				*ix = i % 5;
-			if (i % 5 > *jx)
-				*jx = i % 5;
+			if (i / 5 < wh[0])
+				wh[0] = i / 5;
+			if (i / 5 > wh[1])
+				wh[1] = i / 5;
+			if (i % 5 < wh[2])
+				wh[2] = i % 5;
+			if (i % 5 > wh[3])
+				wh[3] = i % 5;
 		}
-		i++;
 	}
 }
 
@@ -139,24 +142,23 @@ void		ft_save_tetri(char *sample, t_tetri *tab, int nb)
 {
 	int i;
 	int x;
-
+	int wh[4];
 
 	i = -1;
 	while (++i < nb)
 	{
-		int ix = 3;
-		int iy = 3;
-		int jx = 0;
-		int jy = 0;
-		min_max(sample, &ix, &iy, &jx, &jy);
-		
+		wh[0] = 3;
+		wh[1] = 0;
+		wh[2] = 3;
+		wh[3] = 0;
+		ft_get_wh(sample, wh);
 		x = -1;
 		while (++x < 20)
 			if (x / 5 != 4 && x % 5 != 4)
 				tab[i].piece[x / 5][x % 5] = sample[x] == '#' ? 'A' + i : '.';
 		tab[i].letter = 'A' + i;
-		tab[i].width = jx - ix + 1;
-		tab[i].height = jy - iy + 1;
+		tab[i].width = wh[3] - wh[2] + 1;
+		tab[i].height = wh[1] - wh[0] + 1;
 		sample += 21;
 	}
 }
